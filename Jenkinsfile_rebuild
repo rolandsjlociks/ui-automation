@@ -1,0 +1,17 @@
+pipeline {
+    agent any
+    stages { 
+        stage('rebuild_base') {
+            steps {
+                sh "docker build -t ubuntu-jdk-mvn . -f Dockerfile_base"
+            }
+        }
+
+        stage('rebuild_mvn_tests') {
+            steps {
+                sh "docker build -t rolandsjlociks/mvn_tests:latest ."
+                sh "docker push rolandsjlociks/mvn_tests:latest"
+            }
+        }
+    }
+}
