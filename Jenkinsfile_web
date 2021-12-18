@@ -11,7 +11,12 @@ pipeline {
                 echo "Deploying to staging"
             }
             post {
-                send_notification("staging", "deployment")
+                success {
+                    sh "send_notification.sh 'staging deployment' 0"
+                }
+                failure {
+                    sh "send_notification.sh 'staging deployment' 1"
+                }  
             }
         }
         stage('test_staging') {
@@ -19,7 +24,12 @@ pipeline {
                 echo "Testing on staging"
             }
             post {
-                send_notification("staging", "testing")
+                success {
+                    sh "send_notification.sh 'staging testing' 0"
+                }
+                failure {
+                    sh "send_notification.sh 'staging testing' 1"
+                }  
             }
         }
         stage('deploy_production') {
@@ -27,7 +37,12 @@ pipeline {
                 echo "Deploying to production"
             }
             post {
-                send_notification("production", "deployment")
+                success {
+                    sh "send_notification.sh 'production deployment' 0"
+                }
+                failure {
+                    sh "send_notification.sh 'production deployment' 1"
+                }  
             }
         }
         stage('test_production') {
@@ -35,18 +50,15 @@ pipeline {
                 echo "Testing on production"
             }
             post {
-                send_notification("production", "testing")
+                success {
+                    sh "send_notification.sh 'production testing' 0"
+                }
+                failure {
+                    sh "send_notification.sh 'production testing' 1"
+                }  
             }
         }
     }
 }
 
-def send_notification(environment, stage){
-        success {
-            sh String.format("send_notification.sh '%s %d' 0", environment, stage)
-        }
-        failure {
-            sh String.format("send_notification.sh '%s %d' 1", environment, stage)
-        }
-}
     
