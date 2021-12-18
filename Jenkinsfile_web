@@ -13,10 +13,10 @@ pipeline {
             }
             post {
                 success {
-                    sh './send_notification.sh "staging deployment" 0'
+                    sh 'sh ./send_notification.sh "staging deployment" 0'
                 }
                 failure {
-                    sh './send_notification.sh "staging deployment" 1'
+                    sh 'sh ./send_notification.sh "staging deployment" 1'
                 }  
             }
         }
@@ -26,10 +26,10 @@ pipeline {
             }
             post {
                 success {
-                    sh "./send_notification.sh 'staging testing' 0"
+                    sh "sh ./send_notification.sh 'staging testing' 0"
                 }
                 failure {
-                    sh "./send_notification.sh 'staging testing' 1"
+                    sh "sh ./send_notification.sh 'staging testing' 1"
                 }  
             }
         }
@@ -39,10 +39,10 @@ pipeline {
             }
             post {
                 success {
-                    sh "./send_notification.sh 'production deployment' 0"
+                    sh "sh ./send_notification.sh 'production deployment' 0"
                 }
                 failure {
-                    sh "./send_notification.sh 'production deployment' 1"
+                    sh "sh ./send_notification.sh 'production deployment' 1"
                 }  
             }
         }
@@ -52,10 +52,10 @@ pipeline {
             }
             post {
                 success {
-                    sh "./send_notification.sh 'production testing' 0"
+                    sh "sh ./send_notification.sh 'production testing' 0"
                 }
                 failure {
-                    sh "./send_notification.sh 'production testing' 1"
+                    sh "sh ./send_notification.sh 'production testing' 1"
                 }  
             }
         }
