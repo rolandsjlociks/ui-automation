@@ -33,7 +33,7 @@ pipeline {
     }
 }
 
-def send_notification_after(environment, stage){
+def send_notification(environment, stage){
     post {
         success {
             sh String.format("send_notification.sh '%s %d' 0", environment, stage)
