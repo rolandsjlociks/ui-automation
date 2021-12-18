@@ -1,0 +1,46 @@
+pipeline {
+    agent any
+    stages { 
+        stage('build') {
+            steps {
+            }
+        }
+
+        stage('deploy_staging') {
+            steps {
+                echo "Deploying to staging"
+            }
+            send_notification("staging", "deployment")
+        }
+        stage('test_staging') {
+            steps {
+                echo "Testing on staging"
+            }
+            send_notification("staging", "testing")
+        }
+        stage('deploy_production') {
+            steps {
+                echo "Deploying to production"
+            }
+            send_notification("production", "deployment")
+        }
+        stage('test_production') {
+            steps {
+                echo "Testing on production"
+            }
+            send_notification("production", "testing")
+        }
+    }
+}
+
+def send_notification_after(environment, stage){
+    post {
+        success {
+            sh String.format("send_notification.sh '%s %d' 0", environment, stage)
+        }
+        failure {
+            sh String.format("send_notification.sh '%s %d' 1", environment, stage)
+        }
+    }
+}
+    
