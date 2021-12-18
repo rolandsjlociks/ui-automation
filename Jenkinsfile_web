@@ -13,6 +13,7 @@ pipeline {
             }
             post {
                 success {
+                    sh "ls"
                     sh "./send_notification.sh 'staging deployment' 0"
                 }
                 failure {
