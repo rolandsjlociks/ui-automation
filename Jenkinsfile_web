@@ -16,7 +16,7 @@ pipeline {
                     sh './send_notification.sh "staging deployment" 0'
                 }
                 failure {
-                    sh './send_notification.sh "staging deployment" 1"
+                    sh './send_notification.sh "staging deployment" 1'
                 }  
             }
         }
