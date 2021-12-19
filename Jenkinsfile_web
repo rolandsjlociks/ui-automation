@@ -1,4 +1,5 @@
 pipeline {
+    //trigger plz
     agent any
     stages { 
         stage('build') {
@@ -20,9 +21,7 @@ pipeline {
                 }  
             }
         }
-        stage('test_staging') {
-
-            
+        stage('test_staging')          
             stages {
                 stage('setup_test_env'){
                     steps {
