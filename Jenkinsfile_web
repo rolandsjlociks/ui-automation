@@ -82,10 +82,36 @@ pipeline {
         }
         stage('test_production') {
             steps {
-                echo "Testing on production"
-                sh "docker pull rolandsjlociks/mvn_tests:latest"
+                stages {
+                stage('setup_test_env'){
+                    steps {
+                        echo "Testing on staging"
+                        sh "docker pull rolandsjlociks/mvn_tests:latest"
+                        sh "docker compose -f docker-compose-web.yaml up -d"
+                        
+                    }
+            }
+                
+                stage('run_tests'){
+                    parallel {
+                            stage ("chrome") {
+                                steps {
+                                sh "docker run --network=test-automation-setup rolandsjlociks/mvn_tests mvn clean test -Dbrowser=chrome -DgridURL=chrome:5555"
+                                }
+                            }
+                            stage("firefox") {
+                            steps {
+                                sh "docker run --network=test-automation-setup rolandsjlociks/mvn_tests mvn clean test -Dbrowser=firefox -DgridURL=firefox:5555"
+                                }
+                            }
+                    }
+                }
+            }
             }
             post {
+                always {
+                    sh "docker compose down"
+                }
                 success {
                     sh "sh ./send_notification.sh 'production testing' 0"
                 }
