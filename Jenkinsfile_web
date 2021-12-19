@@ -56,7 +56,7 @@ pipeline {
                 }
             }
             post {
-                alwats {
+                always {
                     sh "docker compose down"
                 }
                 success {
