@@ -23,6 +23,9 @@ pipeline {
         stage('test_staging') {
             steps {
                 echo "Testing on staging"
+                sh "docker pull rolandsjlociks/mvn_tests:latest"
+                sh "docker compose -f docker-compose-web.yaml up"
+                sh "docker compose down"
             }
             post {
                 success {
@@ -49,6 +52,7 @@ pipeline {
         stage('test_production') {
             steps {
                 echo "Testing on production"
+                sh "docker pull rolandsjlociks/mvn_tests:latest"
             }
             post {
                 success {
