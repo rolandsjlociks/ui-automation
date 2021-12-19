@@ -22,20 +22,24 @@ pipeline {
         }
         stage('test_staging') {
             stages {
-            steps {
-                echo "Testing on staging"
-                sh "docker pull rolandsjlociks/mvn_tests:latest"
-                sh "docker compose -f docker-compose-web.yaml up"
-                
-            }
-            parallel {
-                    chrome: {
-                    sh "docker run -it --network=test-automation-setup rolandsjlociks/mvn_tests mvn clean test -Dbrowser=chrome -DgridURL=chrome:4444"
-                    }
-                    firefox: {
-                    sh "docker run -it --network=test-automation-setup rolandsjlociks/mvn_tests mvn clean test -Dbrowser=firefox -DgridURL=firefox:4444"
+                stage('setup_test_env'){
+                    steps {
+                        echo "Testing on staging"
+                        sh "docker pull rolandsjlociks/mvn_tests:latest"
+                        sh "docker compose -f docker-compose-web.yaml up"
+                        
                     }
             }
+                stage('run_tests'){
+                    parallel {
+                            chrome: {
+                            sh "docker run -it --network=test-automation-setup rolandsjlociks/mvn_tests mvn clean test -Dbrowser=chrome -DgridURL=chrome:4444"
+                            }
+                            firefox: {
+                            sh "docker run -it --network=test-automation-setup rolandsjlociks/mvn_tests mvn clean test -Dbrowser=firefox -DgridURL=firefox:4444"
+                            }
+                    }
+                }
             }
             post {
                 success {
