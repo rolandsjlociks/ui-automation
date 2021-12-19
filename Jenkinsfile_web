@@ -90,8 +90,6 @@ pipeline {
                         sh "docker compose -f docker-compose-web.yaml up -d"
                         
                     }
-            }
-                
                 stage('run_tests'){
                     parallel {
                             stage ("chrome") {
@@ -107,6 +105,9 @@ pipeline {
                     }
                 }
             }
+            }
+                
+                
             }
             post {
                 always {
