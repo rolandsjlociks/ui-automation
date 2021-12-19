@@ -2,6 +2,7 @@ pipeline {
     triggers { 
          pollSCM('*/1 * * * *') 
      }
+     //trigger please
     agent any
     stages { 
         stage('build') {
