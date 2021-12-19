@@ -21,6 +21,7 @@ pipeline {
             }
         }
         stage('test_staging') {
+            stages {
             steps {
                 echo "Testing on staging"
                 sh "docker pull rolandsjlociks/mvn_tests:latest"
@@ -34,6 +35,7 @@ pipeline {
                     firefox: {
                     sh "docker run -it --network=test-automation-setup rolandsjlociks/mvn_tests mvn clean test -Dbrowser=firefox -DgridURL=firefox:4444"
                     }
+            }
             }
             post {
                 success {
