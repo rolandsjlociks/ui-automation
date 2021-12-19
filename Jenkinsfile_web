@@ -43,10 +43,14 @@ pipeline {
                 stage('run_tests'){
                     parallel {
                             stage ("chrome") {
-                            sh "docker run -it --network=test-automation-setup rolandsjlociks/mvn_tests mvn clean test -Dbrowser=chrome -DgridURL=chrome:4444"
+                                steps {
+                                sh "docker run -it --network=test-automation-setup rolandsjlociks/mvn_tests mvn clean test -Dbrowser=chrome -DgridURL=chrome:4444"
+                                }
                             }
                             stage("firefox") {
-                            sh "docker run -it --network=test-automation-setup rolandsjlociks/mvn_tests mvn clean test -Dbrowser=firefox -DgridURL=firefox:4444"
+                            steps {
+                                sh "docker run -it --network=test-automation-setup rolandsjlociks/mvn_tests mvn clean test -Dbrowser=firefox -DgridURL=firefox:4444"
+                                }
                             }
                     }
                 }
