@@ -21,14 +21,7 @@ pipeline {
             }
         }
         stage('test_staging') {
-            /*
-            steps {
-                        echo "Testing on staging"
-                        sh "docker pull rolandsjlociks/mvn_tests:latest"
-                        sh "docker compose -f docker-compose-web.yaml up"
-                        parallel
-                        
-                    }*/
+
             
             stages {
                 stage('setup_test_env'){
@@ -81,8 +74,7 @@ pipeline {
             }
         }
         stage('test_production') {
-            steps {
-                stages {
+            stages {
                 stage('setup_test_env'){
                     steps {
                         echo "Testing on staging"
@@ -105,10 +97,9 @@ pipeline {
                             }
                     }
                 }
-            }
+        }
                 
                 
-            }
             post {
                 always {
                     sh "docker compose down"
