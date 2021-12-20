@@ -116,12 +116,6 @@ pipeline {
             }
         }
     }
-    publishHTML (target: [
-      keepAll: true,
-      reportDir: 'report',
-      reportFiles: 'index.html',
-      reportName: "Web Report"
-    ])
 
 
 }
