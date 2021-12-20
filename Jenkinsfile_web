@@ -39,7 +39,7 @@ pipeline {
                     parallel {
                             stage ("chrome") {
                                 steps {
-                                //sh "docker run -v /Users/rolandsjurislociks/Documents/CICD_Winter_Task/ui-automation/raptors:/raptors --network=test-automation-setup rolandsjlociks/mvn_tests /bin/bash -c  'mvn clean test -Dbrowser=chrome -DgridURL=chrome:5555 && mvn io.qameta.allure:allure-maven:report && rm -rf raptors/* && cp -r target/site/allure-maven-plugin raptors'"
+                                sh "docker run -v ~/Users/rolandsjurislociks/Documents/CICD_Winter_Task/ui-automation/raptors:/raptors --network=test-automation-setup rolandsjlociks/mvn_tests /bin/bash -c  'mvn clean test -Dbrowser=chrome -DgridURL=chrome:5555 && mvn io.qameta.allure:allure-maven:report && rm -rf raptors/* && cp -r target/site/allure-maven-plugin raptors'"
                                 sh "docker run --network=test-automation-setup rolandsjlociks/mvn_tests mvn clean test -Dbrowser=chrome -DgridURL=chrome:5555"
                                 }
                             }
