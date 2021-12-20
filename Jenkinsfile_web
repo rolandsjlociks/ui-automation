@@ -1,4 +1,5 @@
 pipeline {
+    //trigger plz
     triggers { 
          pollSCM('*/1 * * * *') 
      }
