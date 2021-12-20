@@ -1,5 +1,5 @@
 pipeline {
-    //trigger plz
+    // don't trigger rebuild plz
     triggers { 
          pollSCM('*/1 * * * *') 
      }
